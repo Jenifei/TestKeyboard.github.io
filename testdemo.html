@@ -3,7 +3,7 @@
 <head>
     <title>Parcel Sandbox</title>
     <meta charset="UTF-8" />
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/css/index.css">
     <style>
         body {
@@ -31,8 +31,8 @@
     <script>
 
         document.addEventListener("keyup", caretEventHandler);
-        //document.addEventListener("mouseup", caretEventHandler);
-        //document.addEventListener("touchend", caretEventHandler);
+        document.addEventListener("mouseup", caretEventHandler);
+        document.addEventListener("touchend", caretEventHandler);
 
         function caretEventHandler(event) {
             let targetTagName;
@@ -44,45 +44,6 @@
                 document.querySelector(".simple-keyboard span").innerHTML = event.target.selectionStart;
             }
         }
-
-            //let Keyboard = window.SimpleKeyboard.default;
-
-            //let keyboard = new Keyboard({
-            //    onChange: input => onChange(input),
-            //    onKeyPress: button => onKeyPress(button)
-            //});
-
-            ///**
-            // * Update simple-keyboard when input is changed directly
-            // */
-            //document.querySelector(".input").addEventListener("input", event => {
-            //    keyboard.setInput(event.target.value);
-            //});
-
-            //console.log(keyboard);
-
-            //function onChange(input) {
-            //    document.querySelector(".input").value = input;
-            //    console.log("Input changed", input);
-            //}
-
-            //function onKeyPress(button) {
-            //    console.log("Button pressed", button);
-
-            //    /**
-            //     * If you want to handle the shift and caps lock buttons
-            //     */
-            //    if (button === "{shift}" || button === "{lock}") handleShift();
-            //}
-
-            //function handleShift() {
-            //    let currentLayout = keyboard.options.layoutName;
-            //    let shiftToggle = currentLayout === "default" ? "shift" : "default";
-
-            //    keyboard.setOptions({
-            //        layoutName: shiftToggle
-            //    });
-            //}
 
 
 

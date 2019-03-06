@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Story</title>
+</head>
+<body>
+    <div class=" firstDiv">
+        <img src="https://imgur.com/PVBYWRJ.png" style="width:30px;height:30px" alt="Story" id="Story">
+
+        <div class=" changeBottun">
+            <input id="fileInput" type="file" style="display: none;" />
+            <input type="button" value="Add\Change Story!" onclick="document.getElementById('fileInput').click();myTimeoutFunction();" style="display:inline; " />
+
+            <button onclick="SetDefault()">
+                <img id="btnImg" src="https://imgur.com/PVBYWRJ.png  "
+                     width="20" height="20" alt=".." />
+                Use Default
+            </button>
+
+        </div>
+    </div>
+    <script>
+    //To save image in localStorage.
+        window.onload = function () {
+            if (localStorage.getItem("imgData") === null) {
+                var storyImage = document.getElementById("Story");
+                storyImgData = getBase64Image(storyImage);
+                localStorage.setItem("storyImgData", storyImgData);
+            }
+            else {
+                var dataImage = localStorage.getItem('storyImgData');
+                storyImg = document.getElementById('Story');
+                storyImg.src = dataImage;
+            }
+            document.getElementById("fileInput").onchange = function () {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById("Story").src = e.target.result;
+                    storyImgData = (e.target.result);
+                    localStorage.setItem("storyImgData", storyImgData);
+                }
+                reader.readAsDataURL(this.files[0]);
+            }
+        }
+        function SetDefault(){
+            document.getElementById('Story').src = 'https://imgur.com/PVBYWRJ.png';
+            storyImgData = 'https://imgur.com/PVBYWRJ.png';
+            localStorage.setItem("storyImgData", storyImgData);
+        }
+        function getBase64Image(img) {
+            //save the image as a Base64.
+            var canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0);
+            var dataURL = canvas.toDataURL("image/png");
+            return dataURL;
+        }
+    </script>
+</body>
+</html>

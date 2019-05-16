@@ -1,0 +1,1129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <style>
+
+
+        table.grid {
+            width: 100% !important;
+        }
+
+            table.grid td {
+                text-align: left;
+            }
+
+
+
+            table.grid thead th {
+                background-color: #0038a8 !important;
+                font-weight: bold !important;
+                font-style: italic !important;
+                color: white !important;
+                text-align: left !important;
+            }
+
+
+        div.header-fixed {
+            width: 100% !important;
+        }
+
+
+        div.tableheader {
+            overflow-y: hidden !important;
+            overflow-x: hidden !important;
+        }
+
+
+        div.tablebody {
+            overflow-y: scroll;
+            overflow-x: scroll;
+            max-height: 450px !important;
+            /* margin-right: 17px !important; */
+        }
+
+        table.grid.table-condensed thead th {
+            background-color: #0038a8 !important;
+            font-weight: bold !important;
+            font-style: italic !important;
+            color: white !important;
+            text-align: left !important;
+        }
+
+
+
+
+
+        table.grid thead tr th:nth-child(1),
+        table.grid tbody tr td:nth-child(1) {
+            /* max-width: 51px !important; */
+            max-width: 51px !important;
+            min-width: 51px !important;
+        }
+
+        table.grid thead tr th:nth-child(2),
+        table.grid tbody tr td:nth-child(2) {
+            /* max-width: 51px !important; */
+            max-width: 51px !important;
+            min-width: 51px !important;
+        }
+
+        table.grid thead tr th:nth-child(3),
+        table.grid tbody tr td:nth-child(3) {
+            max-width: 596px !important;
+            min-width: 596px !important;
+        }
+
+
+        table.grid thead tr th:nth-child(4),
+        table.grid tbody tr td:nth-child(4) {
+            max-width: 100px !important;
+            min-width: 100px !important;
+        }
+
+        table.grid thead tr th:nth-child(5),
+        table.grid tbody tr td:nth-child(5) {
+            max-width: 100px !important;
+            min-width: 100px !important;
+        }
+
+        table.grid thead tr th:nth-child(6),
+        table.grid tbody tr td:nth-child(6) {
+            max-width: 185px !important;
+            min-width: 185px !important;
+        }
+
+        table.grid thead tr th:nth-child(7),
+        table.grid tbody tr td:nth-child(7) {
+            max-width: 185px !important;
+            min-width: 185px !important;
+        }
+
+        table.grid thead tr th:nth-child(8),
+        table.grid tbody tr td:nth-child(8) {
+            max-width: 185px !important;
+            min-width: 185px !important;
+        }
+
+        table.grid thead tr th:nth-child(9),
+        table.grid tbody tr td:nth-child(9) {
+            max-width: 185px !important;
+            min-width: 185px !important;
+        }
+
+        table.grid thead tr th:nth-child(10),
+        table.grid tbody tr td:nth-child(10) {
+            max-width: 130px !important;
+            min-width: 130px !important;
+        }
+
+        table.grid thead tr th:nth-child(11),
+        table.grid tbody tr td:nth-child(11) {
+            max-width: 130px !important;
+            min-width: 130px !important;
+        }
+
+        table.grid thead tr th:nth-child(12),
+        table.grid tbody tr td:nth-child(12) {
+            max-width: 130px !important;
+            min-width: 130px !important;
+        }
+
+        table.grid thead tr th:nth-child(13),
+        table.grid tbody tr td:nth-child(13) {
+            max-width: 130px !important;
+            min-width: 130px !important;
+        }
+
+        table.grid thead tr th:nth-child(14),
+        table.grid tbody tr td:nth-child(14) {
+            max-width: 130px !important;
+            min-width: 130px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div ng-controller="ActionController" ng-app="Action">
+            ActionItems
+            <div class="tableheader">
+                <table id="actionitems" class="table-striped table-condensed table-bordered sortable action grid">
+                    <!--datatable="" dt-options="dtOptions"-->
+                    <thead>
+                        <tr>
+                            <th>
+                                Edit
+                            </th>
+                            <th click="sort('actionitemid')" class="{reverse: reverse}">
+                                ID
+                            </th>
+                            <th click="sort('actionitemtitle')" class="{reverse: reverse}">
+                                Action Item Title
+                            </th>
+                            <th click="sort('status')" class="{reverse: reverse}">
+                                Status
+                            </th>
+                            <th click="sort('critlevel')" class="{reverse: reverse}">
+                                Criticality
+                            </th>
+                            <th click="sort('assignor')" class="{reverse: reverse}">
+                                Assignor
+                            </th>
+                            <th click="sort('owner')" class="{reverse: reverse}">
+                                Owner
+                            </th>
+                            <th click="sort('altowner')" class="{reverse: reverse}">
+                                Alt Owner
+                            </th>
+                            <th click="sort('approver')" class="{reverse: reverse}">
+                                Approver
+                            </th>
+                            <th click="sort('assigneddate')" class="{reverse: reverse}">
+                                Assigned Date
+                            </th>
+                            <th click="sort('duedate')" class="{reverse: reverse}">
+                                Due Date
+                            </th>
+                            <th click="sort('ecd')" class="{reverse: reverse}">
+                                ECD
+                            </th>
+                            <th click="sort('completiondate')" class="{reverse: reverse}">
+                                Completed
+                            </th>
+                            <th click="sort('closedate')" class="{reverse: reverse}">
+                                Closed
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="tablebody" style="margin-right 17px !important">
+                <table class="table-striped table-condensed table-bordered grid">
+                    <tbody>
+                        <!-- ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/1">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/1">1</a></td>
+                            <td class="ng-binding">Create ActionAIM My Info Feature</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Jones, Silva</td>
+                            <td class="ng-binding">Patterson, Robert</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">11/03/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">11/10/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Late">05/09/2019</td>
+                            <td class="ng-binding">06/21/2019</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">06/29/2019</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/2">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/2">2</a></td>
+                            <td class="ng-binding">Create ActionAIM Dashboard Feature</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Jones, Silva</td>
+                            <td class="ng-binding">Mulvany, Fred</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">11/03/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">11/10/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Late">11/12/2015</td>
+                            <td class="ng-binding">06/21/2018</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">06/21/2018</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/3">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/3">3</a></td>
+                            <td class="ng-binding">Add links section to individual detail Action Items page</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Smith, Bob</td>
+                            <td class="ng-binding">King, Diana</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">12/09/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">12/23/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">12/23/2015</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/4">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/4">4</a></td>
+                            <td class="ng-binding">Create ActionAIM Users Manual</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Washington, Abraham</td>
+                            <td class="ng-binding">Wooden, Joe</td>
+                            <td class="ng-binding">Jones, Silva</td>
+                            <td class="ng-binding">01/18/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">01/19/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">01/20/2016</td>
+                            <td class="ng-binding">01/19/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">01/19/2016</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/5">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/5">5</a></td>
+                            <td class="ng-binding">Create PowerPoint overview charts</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Jansen, Linda</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">12/31/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">01/29/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">02/12/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/6">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/6">6</a></td>
+                            <td class="ng-binding">Create ActionAIM requirements document</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Johnson, Robert</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">01/05/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">01/29/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">02/03/2016</td>
+                            <td class="ng-binding">01/28/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">01/29/2016</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/7">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/7">7</a></td>
+                            <td class="ng-binding">Create action item process documentation</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">King, Diana</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">01/05/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="ng-binding">01/27/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">01/29/2016</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/8">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/8">8</a></td>
+                            <td class="ng-binding">Add in multiple project support to ActionAIM application </td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Jones, Silva</td>
+                            <td class="ng-binding">Washington, Abraham</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">01/11/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">01/25/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">02/01/2016</td>
+                            <td class="ng-binding">01/29/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">01/29/2016</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/9">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/9">9</a></td>
+                            <td class="ng-binding">Prepare ActionAIM training workshop</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Bell, Leslie</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">01/11/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/01/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/25/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/10">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/10">10</a></td>
+                            <td class="ng-binding">Evaluate PHP development tool</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Washington, Abraham</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">01/18/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/07/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/07/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/11">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/11">11</a></td>
+                            <td class="ng-binding">Introduce ActionAIM to the customer</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Sheen, Samy</td>
+                            <td class="ng-binding">Presely, George</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">01/18/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/12">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/12">12</a></td>
+                            <td class="ng-binding">Create Issue Management process documentation</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Jones, Silva</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">01/25/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/01/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/23/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/13">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/13">13</a></td>
+                            <td class="ng-binding">Network Installation Proposal</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Berberian, Shant</td>
+                            <td class="ng-binding">Brown, Abraham</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">01/27/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">02/19/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">02/19/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/14">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/14">14</a></td>
+                            <td class="ng-binding">Create shopping cart login components</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Lennon, Dean</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/01/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/15">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/15">15</a></td>
+                            <td class="ng-binding">Create shopping cart purchase mechanism</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Patterson, Robert</td>
+                            <td class="ng-binding">Jones, Silva</td>
+                            <td class="ng-binding">King, Diana</td>
+                            <td class="ng-binding">02/01/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/01/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">04/01/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/16">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/16">16</a></td>
+                            <td class="ng-binding">Document shopping cart application</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Wooden, Joe</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/01/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">02/26/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">02/26/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/17">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/17">17</a></td>
+                            <td class="ng-binding">Feasibility Analysis for International DTV Receiver</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Kirkorian, Mike</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/08/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/18">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/18">18</a></td>
+                            <td class="ng-binding">Research and create a design proposal for product XYZ</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Jones, Silva</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/08/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/01/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/21/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/19">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/19">19</a></td>
+                            <td class="ng-binding">Create customer address database</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Mulvany, Fred</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/08/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">02/19/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">02/19/2016</td>
+                            <td class="ng-binding">02/16/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">02/18/2016</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/20">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/20">20</a></td>
+                            <td class="ng-binding">Create Graphics Rendering Design Proposal</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Mulvany, Fred</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/09/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/22/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">04/15/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/21">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/21">21</a></td>
+                            <td class="ng-binding">Presentation charts for graphics processor project</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Martin, Ledwig</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/09/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/01/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">04/01/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/22">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/22">22</a></td>
+                            <td class="ng-binding">Proposal for VLSI Design</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Mulvany, Fred</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/09/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/08/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">04/08/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/23">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/23">23</a></td>
+                            <td class="ng-binding">Prepare for CMMI Audit</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Johnson, Robert</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/10/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/11/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/11/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/24">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/24">24</a></td>
+                            <td class="ng-binding">Release CDR Report</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Kirkorian, Mike</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/10/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/25">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/25">25</a></td>
+                            <td class="ng-binding">Release Supplier Management Plan</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Samson, Daniel</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/11/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/01/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">04/01/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/26">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/26">26</a></td>
+                            <td class="ng-binding">Sign Contract with Supplier</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Smith, Bob</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/11/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/15/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">04/04/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/27">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/27">27</a></td>
+                            <td class="ng-binding">Select Action Item Management Tool</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">King, Diana</td>
+                            <td class="ng-binding">Walters, Tom</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/12/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/18/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/18/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/28">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/28">28</a></td>
+                            <td class="ng-binding">Implement Action Management Tool</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Walters, Tom</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/11/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">05/03/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">05/03/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/29">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/29">29</a></td>
+                            <td class="ng-binding">Release Failure Analysis Report</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Smith, Bob</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/12/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/30/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/30/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/30">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/30">30</a></td>
+                            <td class="ng-binding">Design Horizon Project Website</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/15/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">05/13/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">05/13/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/31">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/31">31</a></td>
+                            <td class="ng-binding">Project Progress Report</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Washington, Abraham</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/16/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">02/29/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">02/29/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/32">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/32">32</a></td>
+                            <td class="ng-binding">Conduct PDR</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Walters, Tom</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/18/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/25/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/25/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/33">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/33">33</a></td>
+                            <td class="ng-binding">Host Customer Delegation</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/18/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/03/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/34">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/34">34</a></td>
+                            <td class="ng-binding">Release CDR Report</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Patterson, Robert</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">02/22/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/15/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/15/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/35">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/35">35</a></td>
+                            <td class="ng-binding">Provide feature to add project logo to database</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Jones, Silva</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">12/10/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">12/31/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">01/07/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/36">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/36">36</a></td>
+                            <td class="ng-binding">Create Issue Management process documentation </td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Mulvany, Fred</td>
+                            <td class="ng-binding">Wooden, Joe</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">03/26/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/13/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">04/13/2016</td>
+                            <td class="ng-binding">03/30/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/31/2016</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/37">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/37">37</a></td>
+                            <td class="ng-binding">Prepare ActionAIM training workshop</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Wooden, Joe</td>
+                            <td class="ng-binding">Wooden, Joe</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">03/26/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">04/08/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Late">04/08/2016</td>
+                            <td class="ng-binding">03/31/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">04/11/2016</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/38">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/38">38</a></td>
+                            <td class="ng-binding">Research and create a design proposal for product XYZ</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding">Kirkorian, Mike</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">12/01/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">12/10/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Late">12/10/2015</td>
+                            <td class="ng-binding">12/18/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">12/21/2015</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/39">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/39">39</a></td>
+                            <td class="ng-binding">Create customer address database  </td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding">Washington, Abraham</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">11/02/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">11/16/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Late">11/16/2015</td>
+                            <td class="ng-binding">11/20/2015</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Late">11/21/2015</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/40">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/40">40</a></td>
+                            <td class="ng-binding">Create ActionAIM Users Manual </td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Closed</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Walters, Tom</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">03/21/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/30/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">03/30/2016</td>
+                            <td class="ng-binding">03/24/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">03/25/2016</td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/41">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/41">41</a></td>
+                            <td class="ng-binding">Create ActionAIM requirements document</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding"></td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">03/26/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/15/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">04/15/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/42">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/42">42</a></td>
+                            <td class="ng-binding">Create action item process documentation</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Jones, Silva</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">03/26/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/20/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">04/21/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/43">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/43">43</a></td>
+                            <td class="ng-binding">Prepare ActionAIM training workshop</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding red">High</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Zedan, Michael</td>
+                            <td class="ng-binding">Jones, Silva</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">03/26/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">06/01/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">06/01/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/44">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/44">44</a></td>
+                            <td class="ng-binding">Create ActionAIM Users Manual </td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding yellow">Med</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Jones, Silva</td>
+                            <td class="ng-binding">Walters, Tom</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">01/18/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">01/19/2016</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">01/20/2016</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/45">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/45">45</a></td>
+                            <td class="ng-binding">test</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Bell, Leslie</td>
+                            <td class="ng-binding">Bell, Leslie</td>
+                            <td class="ng-binding">Berberian, Shant</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">05/10/2019</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">04/06/2019</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">04/04/2019</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/46">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/46">46</a></td>
+                            <td class="ng-binding">Test</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Jabagchourian, Vahe</td>
+                            <td class="ng-binding">Bell, Leslie</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">05/08/2019</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">05/11/2019</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">05/11/2019</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!--ng-repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/47">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/47">47</a></td>
+                            <td class="ng-binding">test</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Admin</td>
+                            <td class="ng-binding">Bethoven, Barbara</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">05/09/2019</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">05/23/2019</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">05/23/2019</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                        <tr>
+                            <!---repeat="actionitem in actionitems | orderBy:propertyName:reverse" ng-repeat-done="" class="ng-scope"-->
+                            <td><a ui-sref="action@edit({id: actionitem.actionitemid})" href="#!/action/edit/48">Edit</a></td>
+                            <td><a ui-sref="action@view({id: actionitem.actionitemid})" class="ng-binding" href="#!/action/view/48">48</a></td>
+                            <td class="ng-binding">test</td>
+                            <td ng-init="actionitem.status = (!actionitem.completiondate ? 'Open' : (actionitem.completiondate &amp;&amp; !actionitem.closeddate) ? 'Complete' : actionitem.closeddate ? 'Closed' : 'Closed')" class="ng-binding">Open</td>
+                            <td class="[[formatCriticality(actionitem.critlevel)]]" class="ng-binding green">Low</td>
+                            <td class="ng-binding">Berberian, Shant</td>
+                            <td class="ng-binding">Berberian, Shant</td>
+                            <td class="ng-binding">Bell, Leslie</td>
+                            <td class="ng-binding"></td>
+                            <td class="ng-binding">05/09/2019</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely">05/10/2019</td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.ecd)]]" class="ng-binding Timely">05/25/2019</td>
+                            <td class="ng-binding"></td>
+                            <td class="[[getStatus(actionitem.closeddate, actionitem.duedate)]]" class="ng-binding Timely"></td>
+                        </tr><!-- end ngRepeat: actionitem in actionitems | orderBy:propertyName:reverse -->
+                    </tbody>
+                </table>
+            </div>
+            </table>
+            <div init-table />
+            <div done />
+        </div>
+        <script>
+            var refresh = true;
+            var app = angular.module('Action', []);
+            app.controller('ActionController', ['$scope', '$window', '$timeout', '$interval', function ($scope, $window, $timeout, $interval) {
+            }]).directive('initTable', function () {
+                return {
+                    restrict: 'A',
+                    //transclude: true,
+                    controller: function ($scope, $timeout) {
+
+                        $scope.scrollBarWidth = function () {
+                            var outer = document.createElement("div");
+                            outer.style.visibility = "hidden";
+                            outer.style.width = "100px";
+                            outer.style.msOverflowStyle = "scrollbar"; // needed for WinJS apps
+
+                            document.body.appendChild(outer);
+
+                            var widthNoScroll = outer.offsetWidth;
+                            // force scrollbars
+                            outer.style.overflow = "scroll";
+
+                            // add innerdiv
+                            var inner = document.createElement("div");
+                            inner.style.width = "100%";
+                            outer.appendChild(inner);
+
+                            var widthWithScroll = inner.offsetWidth;
+
+                            // remove divs
+                            outer.parentNode.removeChild(outer);
+
+                            return widthNoScroll - widthWithScroll;
+                        }
+                        $scope.setMarginsWidths = function () {
+
+                            $scope.flag = 0;
+                            refresh = 1;
+                            var msie = document.documentMode;
+                            if (refresh) {
+                                $timeout(refreshEvery, 1);
+                            }
+
+                            function refreshEvery() {
+                                if ($scope.flag == 0 || window.devicePixelRatio != $scope.devicePixelRatio) {
+                                    $scope.flag = 1;
+                                    $scope.devicePixelRatio = window.devicePixelRatio;
+                                    var headers = angular.element(document.querySelector('div.tableheader table.grid thead tr')).children();
+                                    var cells = angular.element(document.querySelector('div.tablebody table.grid tbody tr:nth-child(1)')).children();
+                                    angular.forEach(cells, function (cell, idx) {
+                                        var cellwidth = cell.getBoundingClientRect().width;
+                                        headers[idx].width = cellwidth;
+                                    });
+                                }
+
+                                if (refresh && !msie)
+                                    $scope.refreshingPromise = $timeout(refreshEvery, 1);
+                                else {
+                                    $scope.isRefreshing = false;
+                                    $timeout.cancel($scope.refreshingPromise);
+                                }
+
+                                //angular.element(document.querySelector('html')).attr("style", "margin-right: " + 0*$scope.scrollBarWidth() + "px !important");
+                                angular.element(document.querySelector('div.tableheader')).attr("style", "margin-right: " + $scope.scrollBarWidth() + "px !important");
+                                angular.element(document.querySelector('div.tablebody')).attr("style", "margin-right " + $scope.scrollBarWidth() + "px !important");
+                            }
+                        }
+                    },
+                    link: function (scope, element, attrs) {
+                        scope.setMarginsWidths();
+                    }
+                }
+            }).directive('done', function () {
+                return {
+                    restrict: 'A',
+                    controller: function ($scope, $timeout) {
+
+                        $scope.offset = function (el) {
+                            var rect = el.getBoundingClientRect(),
+                                scrollLeft = window.pageXOffset || document.documentElement.scrollLeft,
+                                scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                            return { top: rect.top + scrollTop, left: rect.left + scrollLeft }
+                        }
+
+                        $scope.devicePixelRatio = window.devicePixelRatio;
+                        $scope.setMarginsWidths();
+                        var tablebody = document.querySelector('div.tablebody');
+                        var tableheader = document.querySelector('div.tableheader');
+                        angular.element(tablebody).on("scroll", function (elem, attrs) {  //activate when #center scrolls
+                            left = $scope.offset(angular.element(document.querySelector("div.tablebody table.grid"))[0]).left; //save #center position to var left
+                            (angular.element(tableheader)[0]).scrollLeft = -1 * left + $scope.scrollBarWidth();
+                        });
+                    }
+                }
+            });
+        </script>
+</body>
+</html>
